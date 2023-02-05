@@ -3,7 +3,7 @@ using Unity.GPUAnimation;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Authoring
+namespace WPG.Turret.Gameplay
 {
     /// <summary>
     /// Creates Unit entity and apply gpu animation baking  

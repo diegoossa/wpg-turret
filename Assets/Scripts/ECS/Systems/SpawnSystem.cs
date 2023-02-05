@@ -32,19 +32,16 @@ namespace WPG.Turret.Gameplay
                 }
                 else
                 {
-                    var instance = state.EntityManager.Instantiate(spawnerData.ValueRO.Prefab);
-                    
-                    
-                    //var instance = commandBuffer.Instantiate(spawnerData.ValueRO.Prefab);
+                    var instance = commandBuffer.Instantiate(spawnerData.ValueRO.Prefab);
+                    var position = new float3(random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax), 0,
+                        gameBoard.Bounds.yMax);
+                    commandBuffer.SetComponent(instance, new LocalTransform
+                    {
+                        Position = position,
+                        Rotation = quaternion.identity,
+                        Scale = 1
+                    });
 
-                    //var position = new float3(random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax), 0, gameBoard.Bounds.yMax);
-                    // commandBuffer.SetComponent(instance, new LocalTransform
-                    // {
-                    //     Position = position,
-                    //     Rotation = quaternion.identity,
-                    //     Scale = 1
-                    // });
-                    //
                     // commandBuffer.AddComponent(instance,
                     //     new MovementSpeed
                     //     {
@@ -54,6 +51,8 @@ namespace WPG.Turret.Gameplay
                     spawnerData.ValueRW.CurrentTimer = random.NextFloat(
                         spawnerData.ValueRO.TimeRange.x,
                         spawnerData.ValueRO.TimeRange.y);
+
+                    state.Enabled = false;
                 }
             }
 
