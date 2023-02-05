@@ -2,16 +2,22 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 using static Unity.Entities.SystemAPI;
+using Random = Unity.Mathematics.Random;
 
 namespace WPG.Turret.Gameplay
 {
     public partial struct SpawnSystem : ISystem
     {
+        private uint _seed;
+
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<GameBoard>();
             state.RequireForUpdate<SpawnerData>();
+
+            _seed = (uint)SystemAPI.Time.ElapsedTime;
         }
 
         public void OnDestroy(ref SystemState state)
@@ -21,20 +27,21 @@ namespace WPG.Turret.Gameplay
         public void OnUpdate(ref SystemState state)
         {
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
-            var random = new Random((uint)Time.ElapsedTime + 1);
+            var random = new Random(++_seed * 10);
             var gameBoard = GetSingleton<GameBoard>();
 
             foreach (var spawnerData in Query<RefRW<SpawnerData>>())
             {
                 if (spawnerData.ValueRO.CurrentTimer > 0)
                 {
-                    spawnerData.ValueRW.CurrentTimer -= Time.DeltaTime;
+                    spawnerData.ValueRW.CurrentTimer -= SystemAPI.Time.DeltaTime;
                 }
                 else
                 {
                     var instance = commandBuffer.Instantiate(spawnerData.ValueRO.Prefab);
                     var position = new float3(random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax), 0,
                         gameBoard.Bounds.yMax);
+
                     commandBuffer.SetComponent(instance, new LocalTransform
                     {
                         Position = position,
@@ -51,8 +58,6 @@ namespace WPG.Turret.Gameplay
                     spawnerData.ValueRW.CurrentTimer = random.NextFloat(
                         spawnerData.ValueRO.TimeRange.x,
                         spawnerData.ValueRO.TimeRange.y);
-
-                    state.Enabled = false;
                 }
             }
 

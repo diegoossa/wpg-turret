@@ -74,14 +74,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.gpuanimation": {
-      "version": "file:com.unity.gpuanimation",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.entities": "0.0.12-preview.33"
-      }
-    },
     "com.unity.ide.rider": {
       "version": "3.0.18",
       "depth": 0,

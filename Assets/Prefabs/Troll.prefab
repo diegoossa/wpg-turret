@@ -1355,7 +1355,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 491852}
-  - component: {fileID: -6440517040423025134}
   m_Layer: 0
   m_Name: Troll
   m_TagString: Untagged
@@ -1381,36 +1380,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6440517040423025134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bc64d73d64ddd42912868c1adeb7cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Clips:
-  - {fileID: 7400006, guid: 8c7460f96e8004b4f8ccca93f126e395, type: 3}
-  AnimationFrameRate: 60
-  RandomizeStartTime: 0
-  ClipIndex: 0
-  RandomizeMinMaxSpeed:
-    x: 1
-    y: 1
-  RenderingInfo:
-    BakingPrefab: {fileID: 156312}
-    Material: {fileID: 2100000, guid: f0148b7030a7f0d4eae124c85ccdfb26, type: 2}
-    LodData:
-      Lod1Mesh: {fileID: 4300000, guid: 8c7460f96e8004b4f8ccca93f126e395, type: 3}
-      Lod2Mesh: {fileID: 4300000, guid: 8c7460f96e8004b4f8ccca93f126e395, type: 3}
-      Lod3Mesh: {fileID: 4300000, guid: 8c7460f96e8004b4f8ccca93f126e395, type: 3}
-      Lod1Distance: 50
-      Lod2Distance: 100
-      Lod3Distance: 200
 --- !u!1 &158312
 GameObject:
   m_ObjectHideFlags: 0

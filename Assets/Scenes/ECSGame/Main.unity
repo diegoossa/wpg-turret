@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf48418869342dd4f9d1ee02219a302d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 2502111126720698837, guid: 4f46848c8c238be439db24485a2ffa48, type: 3}
+  Prefab: {fileID: 6161516364347142193, guid: 8241961efb4d7d442a910fc795a3118b, type: 3}
   SpeedRange:
     x: 0.3
     y: 2

@@ -614,7 +614,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: DOTS_INSTANCING_ON
+    Standalone: DOTS_INSTANCING_ON;ENABLE_COMPUTE_DEFORMATIONS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
