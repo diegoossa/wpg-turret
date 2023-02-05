@@ -2,7 +2,6 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 using static Unity.Entities.SystemAPI;
 using Random = Unity.Mathematics.Random;
 
@@ -17,7 +16,7 @@ namespace WPG.Turret.Gameplay
             state.RequireForUpdate<GameBoard>();
             state.RequireForUpdate<SpawnerData>();
 
-            _seed = (uint)SystemAPI.Time.ElapsedTime;
+            _seed = (uint)Time.ElapsedTime;
         }
 
         public void OnDestroy(ref SystemState state)
@@ -34,7 +33,7 @@ namespace WPG.Turret.Gameplay
             {
                 if (spawnerData.ValueRO.CurrentTimer > 0)
                 {
-                    spawnerData.ValueRW.CurrentTimer -= SystemAPI.Time.DeltaTime;
+                    spawnerData.ValueRW.CurrentTimer -= Time.DeltaTime;
                 }
                 else
                 {
