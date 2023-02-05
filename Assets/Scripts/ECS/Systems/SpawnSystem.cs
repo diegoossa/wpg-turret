@@ -21,7 +21,7 @@ namespace WPG.Turret.Gameplay
         public void OnUpdate(ref SystemState state)
         {
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
-            var random = new Random(1);
+            var random = new Random((uint)Time.ElapsedTime + 1);
             var gameBoard = GetSingleton<GameBoard>();
 
             foreach (var spawnerData in Query<RefRW<SpawnerData>>())
@@ -32,27 +32,31 @@ namespace WPG.Turret.Gameplay
                 }
                 else
                 {
-                    var instance = commandBuffer.Instantiate(spawnerData.ValueRO.Prefab);
+                    var instance = state.EntityManager.Instantiate(spawnerData.ValueRO.Prefab);
+                    
+                    
+                    //var instance = commandBuffer.Instantiate(spawnerData.ValueRO.Prefab);
 
-                    commandBuffer.SetComponent(instance, new LocalTransform
-                    {
-                        Position = new float3(
-                            random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax),
-                            0,
-                            gameBoard.Bounds.yMax)
-                    });
-                    commandBuffer.AddComponent(instance,
-                        new MovementSpeed
-                        {
-                            Value = random.NextFloat(spawnerData.ValueRO.SpeedRange.x, spawnerData.ValueRO.SpeedRange.y)
-                        });
+                    //var position = new float3(random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax), 0, gameBoard.Bounds.yMax);
+                    // commandBuffer.SetComponent(instance, new LocalTransform
+                    // {
+                    //     Position = position,
+                    //     Rotation = quaternion.identity,
+                    //     Scale = 1
+                    // });
+                    //
+                    // commandBuffer.AddComponent(instance,
+                    //     new MovementSpeed
+                    //     {
+                    //         Value = random.NextFloat(spawnerData.ValueRO.SpeedRange.x, spawnerData.ValueRO.SpeedRange.y)
+                    //     });
 
                     spawnerData.ValueRW.CurrentTimer = random.NextFloat(
                         spawnerData.ValueRO.TimeRange.x,
                         spawnerData.ValueRO.TimeRange.y);
                 }
             }
-            
+
             commandBuffer.Playback(state.EntityManager);
         }
     }
