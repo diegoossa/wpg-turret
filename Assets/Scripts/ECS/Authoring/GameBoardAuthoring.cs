@@ -1,5 +1,6 @@
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace WPG.Turret.Gameplay
 {
@@ -7,6 +8,7 @@ namespace WPG.Turret.Gameplay
     {
         public Transform BottomLeft;
         public Transform TopRight;
+        public float SpawnerZone = 5f;
         
         private class GameBoardBaker : Baker<GameBoardAuthoring>
         {
@@ -20,7 +22,8 @@ namespace WPG.Turret.Gameplay
                         bottomLeftPosition.x,
                         topRightPosition.x,
                         bottomLeftPosition.z,
-                        topRightPosition.z)
+                        topRightPosition.z),
+                    SpawnerZone = authoring.SpawnerZone
                 });
             }
         }

@@ -1,13 +1,17 @@
-﻿using Unity.Collections;
+﻿using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using static Unity.Entities.SystemAPI;
-using Random = Unity.Mathematics.Random;
 
 namespace WPG.Turret.Gameplay
 {
-    public partial struct SpawnSystem : ISystem
+    /// <summary>
+    /// System to spawn trolls
+    /// </summary>
+    [BurstCompile]
+    public partial struct TrollSpawnSystem : ISystem
     {
         private uint _seed;
 
@@ -23,10 +27,11 @@ namespace WPG.Turret.Gameplay
         {
         }
 
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
-            var random = new Random(++_seed * 10);
+            var random = new Random(++_seed * 100);
             var gameBoard = GetSingleton<GameBoard>();
 
             foreach (var spawnerData in Query<RefRW<SpawnerData>>())
@@ -37,23 +42,31 @@ namespace WPG.Turret.Gameplay
                 }
                 else
                 {
+                    // Create troll instance
                     var instance = commandBuffer.Instantiate(spawnerData.ValueRO.Prefab);
+                    
+                    // Calculate initial position and orientation
                     var position = new float3(random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax), 0,
-                        gameBoard.Bounds.yMax);
+                        random.NextFloat(gameBoard.Bounds.yMax, gameBoard.Bounds.yMax + gameBoard.SpawnerZone));
+                    var target =  new float3(random.NextFloat(gameBoard.Bounds.xMin, gameBoard.Bounds.xMax), 0,
+                        gameBoard.Bounds.yMin);
+                    var orientation = quaternion.LookRotation(target - position, math.up());
 
+                    // Setup initial component values
                     commandBuffer.SetComponent(instance, new LocalTransform
                     {
                         Position = position,
-                        Rotation = quaternion.identity,
+                        Rotation = orientation,
                         Scale = 1
                     });
 
-                    // commandBuffer.AddComponent(instance,
-                    //     new MovementSpeed
-                    //     {
-                    //         Value = random.NextFloat(spawnerData.ValueRO.SpeedRange.x, spawnerData.ValueRO.SpeedRange.y)
-                    //     });
+                    commandBuffer.AddComponent(instance,
+                        new MovementSpeed
+                        {
+                            Value = random.NextFloat(spawnerData.ValueRO.SpeedRange.x, spawnerData.ValueRO.SpeedRange.y)
+                        });
 
+                    // Recalculate next timer
                     spawnerData.ValueRW.CurrentTimer = random.NextFloat(
                         spawnerData.ValueRO.TimeRange.x,
                         spawnerData.ValueRO.TimeRange.y);

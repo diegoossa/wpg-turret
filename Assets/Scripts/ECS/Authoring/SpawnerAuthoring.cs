@@ -10,7 +10,7 @@ namespace WPG.Turret.Gameplay
         public GameObject Prefab;
         [MinMax(0f, 5f)] public float2 SpeedRange;
         [MinMax(1f, 10f)] public float2 SpawnTime;
-
+        
         private class SpawnerBaker : Baker<SpawnerAuthoring>
         {
             public override void Bake(SpawnerAuthoring authoring)
