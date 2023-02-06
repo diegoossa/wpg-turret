@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Troll : MonoBehaviour
+public class OldTroll : MonoBehaviour
 {
     // Troll state
     public enum State

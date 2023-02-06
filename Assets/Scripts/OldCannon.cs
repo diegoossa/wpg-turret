@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Cannon : MonoBehaviour
+public class OldCannon : MonoBehaviour
 {
     [SerializeField]
     private GameController gameController = null;

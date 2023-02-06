@@ -15,6 +15,7 @@ namespace WPG.Turret.Gameplay
     /// <summary>
     /// System to spawn trolls
     /// </summary>
+    [BurstCompile]
     public partial struct TrollSpawnSystem : ISystem
     {
         private uint _seed;
@@ -32,6 +33,7 @@ namespace WPG.Turret.Gameplay
         {
         }
 
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
@@ -69,11 +71,14 @@ namespace WPG.Turret.Gameplay
                         {
                             Value = random.NextFloat(spawnerData.ValueRO.SpeedRange.x, spawnerData.ValueRO.SpeedRange.y)
                         });
+                    
+                    commandBuffer.AddComponent<DamageableTag>(instance);
 
                     // Recalculate next timer
                     spawnerData.ValueRW.CurrentTimer = random.NextFloat(
                         spawnerData.ValueRO.CooldownRange.x,
                         spawnerData.ValueRO.CooldownRange.y);
+
                 }
             }
 

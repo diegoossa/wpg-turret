@@ -2,5 +2,5 @@
 
 namespace WPG.Turret.Gameplay
 {
-    public struct Damageable : IComponentData { }
+    public struct DamageableTag : IComponentData { }
 }

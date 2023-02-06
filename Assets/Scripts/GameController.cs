@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -7,8 +8,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject trollPrefab = null;
 
-    [SerializeField]
-    private Cannon cannon = null;
+    [FormerlySerializedAs("cannon")] [SerializeField]
+    private OldCannon oldCannon = null;
 
     [SerializeField]
     private GameObject topRight = null;
@@ -59,7 +60,7 @@ public class GameController : MonoBehaviour
     private bool gameRunning = false;
 
     // Troll list property.
-    public List<Troll> Trolls { get; private set; } = new List<Troll>(10);
+    public List<OldTroll> Trolls { get; private set; } = new List<OldTroll>(10);
 
     // Game board dimensions property.
     private Rect GameBoard
@@ -88,7 +89,7 @@ public class GameController : MonoBehaviour
         Trolls.Clear();
 
         // Reset cannon.
-        cannon.Reset();
+        oldCannon.Reset();
 
         // Reset game variables.
         nextTrollId = 0;
@@ -140,7 +141,7 @@ public class GameController : MonoBehaviour
             var targetPos = new Vector3(Random.Range(GameBoard.xMin, GameBoard.xMax), 0, GameBoard.yMin);
             var trollOrientation = Quaternion.LookRotation(targetPos - trollPos, Vector3.up);
             var newTroll = Instantiate(trollPrefab, trollPos, trollOrientation);
-            var newTrollComponent = newTroll.GetComponent<Troll>();
+            var newTrollComponent = newTroll.GetComponent<OldTroll>();
             var trollSpeed = Random.Range(trollSpeedMin, trollSpeedMax);
             trollSpeed *= Mathf.Pow(trollSpeedChangeFactor, nextTrollId);
             newTrollComponent.Speed = trollSpeed;
@@ -156,10 +157,10 @@ public class GameController : MonoBehaviour
         foreach (var troll in Trolls)
         {
             // Test for troll reaching the line of the cannon.
-            if (troll.transform.position.z <= cannon.transform.position.z)
+            if (troll.transform.position.z <= oldCannon.transform.position.z)
             {
-                var trollComponent = troll.GetComponent<Troll>();
-                trollComponent.SetState(Troll.State.Winning);
+                var trollComponent = troll.GetComponent<OldTroll>();
+                trollComponent.SetState(OldTroll.State.Winning);
 
                 OnDefeat();
 
@@ -187,7 +188,7 @@ public class GameController : MonoBehaviour
         // Rough and ready collision check for bullets against trolls.
         foreach (var bullet in bullets)
         {
-            var trollsToKill = new List<Troll>();
+            var trollsToKill = new List<OldTroll>();
             foreach (var troll in Trolls)
             {
                 if (Vector3.SqrMagnitude(bullet.transform.position - troll.transform.position) <= bulletHitToleranceSq)
@@ -213,11 +214,11 @@ public class GameController : MonoBehaviour
     }
 
     // Kill troll.
-    private void KillTroll(Troll troll)
+    private void KillTroll(OldTroll oldTroll)
     {
         // Kill troll.
-        Trolls.Remove(troll);
-        Destroy(troll.gameObject);
+        Trolls.Remove(oldTroll);
+        Destroy(oldTroll.gameObject);
 
         // Update score (if game is running).
         if (gameRunning)
