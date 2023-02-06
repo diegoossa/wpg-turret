@@ -10,7 +10,7 @@ namespace WPG.Turret.Gameplay
     {
         public Entity Prefab;
         public float2 SpeedRange;
-        public float2 TimeRange;
+        public float2 CooldownRange;
         public float CurrentTimer;
     }
 }

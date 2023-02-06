@@ -8,9 +8,13 @@ using static Unity.Entities.SystemAPI;
 namespace WPG.Turret.Gameplay
 {
     /// <summary>
+    /// Tag to differentiate Troll spawner
+    /// </summary>
+    public struct TrollSpawnerTag : IComponentData { }
+    
+    /// <summary>
     /// System to spawn trolls
     /// </summary>
-    [BurstCompile]
     public partial struct TrollSpawnSystem : ISystem
     {
         private uint _seed;
@@ -19,6 +23,7 @@ namespace WPG.Turret.Gameplay
         {
             state.RequireForUpdate<GameBoard>();
             state.RequireForUpdate<SpawnerData>();
+            state.RequireForUpdate<TrollSpawnerTag>();
 
             _seed = (uint)Time.ElapsedTime;
         }
@@ -27,14 +32,13 @@ namespace WPG.Turret.Gameplay
         {
         }
 
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
             var random = new Random(++_seed * 100);
             var gameBoard = GetSingleton<GameBoard>();
 
-            foreach (var spawnerData in Query<RefRW<SpawnerData>>())
+            foreach (var spawnerData in Query<RefRW<SpawnerData>>().WithAll<TrollSpawnerTag>())
             {
                 if (spawnerData.ValueRO.CurrentTimer > 0)
                 {
@@ -68,8 +72,8 @@ namespace WPG.Turret.Gameplay
 
                     // Recalculate next timer
                     spawnerData.ValueRW.CurrentTimer = random.NextFloat(
-                        spawnerData.ValueRO.TimeRange.x,
-                        spawnerData.ValueRO.TimeRange.y);
+                        spawnerData.ValueRO.CooldownRange.x,
+                        spawnerData.ValueRO.CooldownRange.y);
                 }
             }
 

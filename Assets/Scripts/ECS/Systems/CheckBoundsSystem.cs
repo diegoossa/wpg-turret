@@ -24,7 +24,7 @@ namespace WPG.Turret.Gameplay
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
             var gameBoard = GetSingleton<GameBoard>();
 
-            foreach (var (transform, entity) in Query<TransformAspect>().WithEntityAccess())
+            foreach (var (transform, entity) in Query<TransformAspect>().WithEntityAccess().WithAll<MovementSpeed>())
             {
                 if (!gameBoard.InsideBounds(transform.WorldPosition))
                 {

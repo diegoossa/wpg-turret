@@ -669,8 +669,22 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 310517033}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 177198, guid: f8f047695f472d84c9c1786697b77ea9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1672738394}
+    - targetCorrespondingSourceObject: {fileID: 177198, guid: f8f047695f472d84c9c1786697b77ea9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1672738393}
   m_SourcePrefab: {fileID: 100100000, guid: f8f047695f472d84c9c1786697b77ea9, type: 3}
+--- !u!1 &652497411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177198, guid: f8f047695f472d84c9c1786697b77ea9,
+    type: 3}
+  m_PrefabInstance: {fileID: 652497410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1120538957
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143602668}
   - component: {fileID: 1143602667}
+  - component: {fileID: 1143602669}
   m_Layer: 0
   m_Name: TrollSpawner
   m_TagString: Untagged
@@ -771,6 +786,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1143602669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143602666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc2f7839dae442684d5fa025460d3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1326235344
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,3 +837,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 652497410}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1672738393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652497411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d942577b784d12836e7273ae249504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MouthPosition: {fileID: 310517033}
+  MaxRotationSpeed: 90
+  StartingAmmo: 1000
+--- !u!114 &1672738394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652497411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf48418869342dd4f9d1ee02219a302d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6904740471911421359, guid: 4b55dbbb2640341408daf24f8a0b7087, type: 3}
+  SpeedRange:
+    x: 5
+    y: 5
+  SpawnTime:
+    x: 0.5
+    y: 0.5

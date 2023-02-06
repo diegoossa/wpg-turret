@@ -19,7 +19,7 @@ namespace WPG.Turret.Gameplay
                 {
                     Prefab = GetEntity(authoring.Prefab),
                     SpeedRange = authoring.SpeedRange,
-                    TimeRange = authoring.SpawnTime
+                    CooldownRange = authoring.SpawnTime
                 });
             }
         }
