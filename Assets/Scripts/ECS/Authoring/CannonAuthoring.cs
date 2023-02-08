@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace WPG.Turret.Gameplay
@@ -15,7 +16,8 @@ namespace WPG.Turret.Gameplay
             {
                 AddComponent(new Cannon
                 {
-                    MaxRotationSpeed = authoring.MaxRotationSpeed,
+                    // Rotation in Unity.Mathematics is in radians
+                    MaxRotationSpeed = math.radians(authoring.MaxRotationSpeed),
                     MouthPosition = authoring.MouthPosition.position,
                     CurrentAmmo = authoring.StartingAmmo
                 });

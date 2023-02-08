@@ -1,0 +1,14 @@
+.container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.score-label {
+    -unity-font-definition: url('project://database/Assets/UI/Fonts/Anton-Regular%20SDF.asset?fileID=11400000&guid=73bac53a2407e804bb8bd81b05c86b81&type=2#Anton-Regular SDF');
+    -unity-font: url('project://database/Assets/UI/Fonts/Anton-Regular.ttf?fileID=12800000&guid=ad795f5f722911746bb66927fc59cf15&type=3#Anton-Regular');
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+}
