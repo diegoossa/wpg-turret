@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/USS/hud.uss?fileID=7433441132597879392&amp;guid=112e4484ce0498647a4efe3625f0b3b1&amp;type=3#hud" />
     <ui:VisualElement name="hud-container" class="container">
-        <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="score-label" class="score-label" style="text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.94);" />
+        <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="score-label" class="score-label" />
     </ui:VisualElement>
 </ui:UXML>

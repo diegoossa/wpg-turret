@@ -7,7 +7,10 @@ using static Unity.Entities.SystemAPI;
 
 namespace WPG.Turret.Gameplay
 {
-    public struct TargetedTag : IComponentData { }
+    public struct Targeted : IComponentData
+    {
+        public float Timer;
+    }
 
     [BurstCompile]
     public partial struct SetCannonTargetSystem : ISystem
@@ -40,7 +43,7 @@ namespace WPG.Turret.Gameplay
 
                 foreach (var (damageableTransform, entity) in Query<TransformAspect>()
                              .WithAll<Troll>()
-                             .WithNone<TargetedTag>()
+                             .WithNone<Targeted>()
                              .WithEntityAccess())
                 {
                     var distance = math.distancesq(cannon.Transform.WorldPosition, damageableTransform.WorldPosition);
@@ -56,7 +59,10 @@ namespace WPG.Turret.Gameplay
                 {
                     cannon.SetTarget(target, targetEntity);
                     // Add targeted tag
-                    commandBuffer.AddComponent<TargetedTag>(targetEntity);
+                    commandBuffer.AddComponent(targetEntity, new Targeted
+                    {
+                        Timer = 2f
+                    });
                 }
             }
 
@@ -70,7 +76,7 @@ namespace WPG.Turret.Gameplay
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<Cannon>();
-            state.RequireForUpdate<TargetedTag>();
+            state.RequireForUpdate<Targeted>();
         }
 
         public void OnDestroy(ref SystemState state)
@@ -124,9 +130,9 @@ namespace WPG.Turret.Gameplay
 
             foreach (var (cannon, spawner) in Query<CannonAspect, SpawnerAspect>())
             {
-                if (!cannon.TargetReached || !cannon.TargetSet) 
+                if (!cannon.TargetReached || !cannon.TargetSet)
                     continue;
-                
+
                 var cannonBall = commandBuffer.Instantiate(spawner.Prefab);
 
                 // Setup initial component values
@@ -142,12 +148,44 @@ namespace WPG.Turret.Gameplay
                     // Since the cannon ball velocity is not random we just use X
                     Value = spawner.SpeedRange.x
                 });
-                
+
                 cannon.ReleaseTarget();
             }
-            
+
             commandBuffer.Playback(state.EntityManager);
             commandBuffer.Dispose();
+        }
+
+        [BurstCompile]
+        public partial struct RemoveTargetedSystem : ISystem
+        {
+            public void OnCreate(ref SystemState state)
+            {
+                state.RequireForUpdate<Targeted>();
+            }
+
+            public void OnDestroy(ref SystemState state)
+            {
+            }
+
+            [BurstCompile]
+            public void OnUpdate(ref SystemState state)
+            {
+                var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
+
+                foreach (var (targeted, entity) in Query<RefRW<Targeted>>().WithEntityAccess())
+                {
+                    targeted.ValueRW.Timer -= Time.DeltaTime;
+
+                    if (targeted.ValueRO.Timer <= 0)
+                    {
+                        commandBuffer.RemoveComponent<Targeted>(entity);
+                    }
+                }
+                
+                commandBuffer.Playback(state.EntityManager);
+                commandBuffer.Dispose();
+            }
         }
     }
 }

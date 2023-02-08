@@ -7,8 +7,9 @@
 }
 
 .score-label {
-    -unity-font-definition: url('project://database/Assets/UI/Fonts/Anton-Regular%20SDF.asset?fileID=11400000&guid=73bac53a2407e804bb8bd81b05c86b81&type=2#Anton-Regular SDF');
+    -unity-font-definition: url('project://database/Assets/UI/Fonts/Anton-Regular%20SDF.asset?fileID=11400000&guid=ebd32d6134aed444f85bc89ab645ee28&type=2#Anton-Regular SDF');
     -unity-font: url('project://database/Assets/UI/Fonts/Anton-Regular.ttf?fileID=12800000&guid=ad795f5f722911746bb66927fc59cf15&type=3#Anton-Regular');
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.64);
 }
