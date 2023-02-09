@@ -1,6 +1,8 @@
 ﻿using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 using static Unity.Entities.SystemAPI;
 
 namespace WPG.Turret.Gameplay
@@ -19,13 +21,14 @@ namespace WPG.Turret.Gameplay
         public void OnDestroy(ref SystemState state)
         {
         }
-        
+
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             foreach (var (transform, movementSpeed) in Query<TransformAspect, RefRO<MovementSpeed>>())
             {
-                transform.TranslateWorld(transform.LocalTransform.Forward() * movementSpeed.ValueRO.Value * Time.DeltaTime);
+                transform.TranslateWorld(transform.LocalTransform.Forward() * movementSpeed.ValueRO.Value *
+                                         SystemAPI.Time.DeltaTime);
             }
         }
     }

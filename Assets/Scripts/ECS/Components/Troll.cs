@@ -8,6 +8,8 @@ namespace WPG.Turret.Gameplay
     {
         public float Radius;
     }
+    
+    public struct TrollVisual : IComponentData {}
 
     public readonly partial struct TrollAspect : IAspect
     {

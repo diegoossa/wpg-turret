@@ -61,12 +61,8 @@ namespace WPG.Turret.Gameplay
                     var orientation = quaternion.LookRotation(target - position, math.up());
 
                     // Setup initial component values
-                    commandBuffer.SetComponent(instance, new LocalTransform
-                    {
-                        Position = position,
-                        Rotation = orientation,
-                        Scale = 1
-                    });
+                    commandBuffer.SetComponent(instance,
+                        LocalTransform.FromPositionRotationScale(position, orientation, 1));
 
                     commandBuffer.AddComponent(instance,
                         new MovementSpeed

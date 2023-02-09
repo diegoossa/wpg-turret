@@ -105,7 +105,7 @@ MonoBehaviour:
   m_PrimitiveSize:
     x: 2
     y: 2
-    z: 3
+    z: 3.01
   m_PrimitiveOrientation:
     Value:
       x: -90
@@ -113,15 +113,15 @@ MonoBehaviour:
       z: -90
     RotationOrder: 4
   m_Capsule:
-    Height: 3
+    Height: 3.01
     Radius: 1
     Axis: 2
   m_Cylinder:
-    Height: 3
+    Height: 3.01
     Radius: 1
     Axis: 2
   m_CylinderSideCount: 20
-  m_SphereRadius: 1.5
+  m_SphereRadius: 1.505
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.040561073
@@ -309,7 +309,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3116d1f52c7d6640b0eb2321ff7b179,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4634050242781845094}
   m_SourcePrefab: {fileID: 100100000, guid: e3116d1f52c7d6640b0eb2321ff7b179, type: 3}
 --- !u!4 &422595650428340113 stripped
 Transform:
@@ -317,3 +321,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 168856382447378554}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1051181691459624235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e3116d1f52c7d6640b0eb2321ff7b179,
+    type: 3}
+  m_PrefabInstance: {fileID: 168856382447378554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4634050242781845094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051181691459624235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41b2780e46044fbbed84b087f76d9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

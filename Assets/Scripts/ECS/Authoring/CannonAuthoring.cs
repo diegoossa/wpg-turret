@@ -18,8 +18,9 @@ namespace WPG.Turret.Gameplay
                 {
                     // Rotation in Unity.Mathematics is in radians
                     MaxRotationSpeed = math.radians(authoring.MaxRotationSpeed),
-                    MouthPosition = authoring.MouthPosition.position,
-                    CurrentAmmo = authoring.StartingAmmo
+                    MouthOffset = authoring.MouthPosition.position - authoring.transform.position,
+                    CurrentAmmo = authoring.StartingAmmo,
+                    Active = true
                 });
             }
         }

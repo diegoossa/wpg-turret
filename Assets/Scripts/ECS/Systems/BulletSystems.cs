@@ -12,31 +12,33 @@ namespace WPG.Turret.Gameplay
         public void OnCreate(ref SystemState state)
         {
         }
-    
+
         public void OnDestroy(ref SystemState state)
         {
         }
-    
-        [BurstCompile]
+
+        // [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
-    
+
             foreach (var troll in Query<TrollAspect>())
             {
                 foreach (var bullet in Query<BulletAspect>())
                 {
-                    var distance = math.length(bullet.Position - troll.Position);
+                    var distance = math.length(new float2(bullet.Position.x, bullet.Position.z) - new float2(troll.Position.x, troll.Position.z));
                     var combinedRadius = bullet.Radius + troll.Radius;
-                    
+
                     if (distance <= combinedRadius)
                     {
                         commandBuffer.DestroyEntity(troll.Entity);
                         commandBuffer.DestroyEntity(bullet.Entity);
+                        if (HUDController.Instance)
+                            HUDController.Instance.IncreaseScore();
                     }
                 }
             }
-            
+
             commandBuffer.Playback(state.EntityManager);
             commandBuffer.Dispose();
         }
